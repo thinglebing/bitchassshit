@@ -1,1 +1,30 @@
+name: Build C++ DLL
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build solution
+      run: msbuild path\to\your\project.sln /p:Configuration=Release /p:Platform=x64
+
+    - name: Upload DLL artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: built-dll
+        path: path\to\your\Release\*.dll
 
